@@ -1,0 +1,215 @@
+{
+  "version": "0.1.0",
+  "status": "pilot",
+  "timezone": "Asia/Taipei",
+  "schedule": {
+    "weekdayCore": {
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "startInclusive": "07:00",
+      "endExclusive": "17:00"
+    },
+    "priority": [
+      "temporaryClosure",
+      "specialDate",
+      "vacation",
+      "weekend",
+      "weekdayDefault"
+    ],
+    "weekendCore": [],
+    "holidayCore": [],
+    "rest": {
+      "practiceAllowed": true,
+      "correctionsAllowed": true,
+      "foodAccrualAllowed": false,
+      "foodCollectionAllowed": false,
+      "buildingUpgradeAllowed": false,
+      "expansionAllowed": false,
+      "practiceReward": 0,
+      "correctionKnowledgeDailyCap": 4
+    },
+    "clockSource": "server",
+    "offlineAccrual": "coreIntervalsOnly"
+  },
+  "resources": {
+    "initial": {
+      "food": 60,
+      "knowledge": 0,
+      "construction": 0
+    },
+    "food": {
+      "initialCapacity": 200,
+      "overflow": "discard"
+    },
+    "knowledge": {
+      "dailyCap": 30,
+      "includesRestAndProgressRewards": true
+    },
+    "construction": {
+      "personalGoalReward": 2,
+      "groupTaskReward": 3,
+      "perStudentDailyCap": 5,
+      "destination": "classProject"
+    }
+  },
+  "buildings": {
+    "maxLevel": 3,
+    "farm": {
+      "initialLevel": 1,
+      "foodPerCoreHourByLevel": [
+        10,
+        15,
+        20
+      ],
+      "upgradeCostByTargetLevel": {
+        "2": {
+          "food": 60,
+          "knowledge": 0
+        },
+        "3": {
+          "food": 120,
+          "knowledge": 6
+        }
+      }
+    },
+    "residence": {
+      "initialLevel": 1,
+      "foodCapacityByLevel": [
+        200,
+        300,
+        400
+      ],
+      "upgradeCostByTargetLevel": {
+        "2": {
+          "food": 50,
+          "knowledge": 0
+        },
+        "3": {
+          "food": 100,
+          "knowledge": 6
+        }
+      }
+    },
+    "academy": {
+      "initialLevel": 1,
+      "upgradeCostByTargetLevel": {
+        "2": {
+          "food": 40,
+          "knowledge": 8
+        },
+        "3": {
+          "food": 80,
+          "knowledge": 16
+        }
+      },
+      "basicPracticeCorrectionsAndExplanationsAlwaysAccessible": true
+    }
+  },
+  "territory": {
+    "plotCount": 12,
+    "initialOpenPlots": 3,
+    "centralLandmarkSeparate": true,
+    "firstFogUnlock": {
+      "completedPracticeSets": 3,
+      "cost": {
+        "knowledge": 10
+      }
+    }
+  },
+  "learning": {
+    "questionType": "fourChoiceSingleAnswer",
+    "practiceSetSize": 5,
+    "practiceCompletionRequiresAllAnswered": true,
+    "firstCorrectKnowledgeReward": 2,
+    "correctionKnowledgeReward": 2,
+    "correctionRequires": [
+      "originalAnswerCorrected",
+      "sameConceptVerificationPassed"
+    ],
+    "correctionRetriesAllowed": true,
+    "sameQuestionNormalRewardLimit": 1,
+    "sameQuestionCorrectionRewardLimit": 1,
+    "rewardScope": "studentClassQuestion",
+    "verificationQuestionGrantsNormalReward": false,
+    "unitChallenge": {
+      "questionCount": 10,
+      "minimumCorrect": 8
+    },
+    "crossUnitTrial": {
+      "questionCount": 10,
+      "minimumCorrect": 7,
+      "minimumCorrectRatioPerUnit": 0.5
+    },
+    "unitMastery": {
+      "recentDistinctQuestions": 10,
+      "firstAttemptsOnly": true,
+      "minimumAccuracy": 0.8,
+      "minimumSessions": 2
+    },
+    "progress": {
+      "baselineSetCount": 3,
+      "sameUnitAndDifficultyOnly": true,
+      "firstAttemptsOnly": true,
+      "excludeCurrentSetFromBaseline": true,
+      "minimumImprovementPercentagePoints": 10,
+      "rewardTiers": [
+        {
+          "minimumPercentagePoints": 10,
+          "knowledge": 2
+        },
+        {
+          "minimumPercentagePoints": 20,
+          "knowledge": 4
+        }
+      ],
+      "stableAccuracyThreshold": 0.8,
+      "stableKnowledgeReward": 2,
+      "rewardSelection": "maximumNotSum",
+      "rewardWithoutBaseline": false,
+      "stableRequiresBaselineAndCurrentThreshold": true
+    }
+  },
+  "classProjects": {
+    "firstProjectConstructionPerActiveStudent": 10
+  },
+  "accounts": {
+    "creation": "teacherBatchStudentCodes",
+    "passwordReset": {
+      "actor": "administrator",
+      "foodCost": 10,
+      "minimumBalanceAfterCharge": 0,
+      "insufficientBalanceBlocksReset": false,
+      "allowedDuringRest": true
+    }
+  },
+  "memberships": {
+    "multipleClassesAllowed": true,
+    "stateScope": "studentClass",
+    "classSwitchResetsState": false,
+    "formalTransferOrWithdrawalResetsPersonalState": true,
+    "destinationInitialState": "destinationClassRules",
+    "pastClassProjectContributionsRetained": true,
+    "transferPersonalContributionCredit": false
+  },
+  "questionImport": {
+    "source": "externalGeneratedFiles",
+    "formats": [
+      "csv",
+      "json"
+    ],
+    "initialState": "draft",
+    "teacherReviewRequired": true,
+    "directAiGeneration": false
+  },
+  "enforcement": {
+    "authorization": "serverAndDatabaseRls",
+    "resourceMutations": "atomicRpcTransactions",
+    "idempotencyRequired": true,
+    "dailyResetTimezone": "classTimezone"
+  }
+}
